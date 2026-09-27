@@ -1,0 +1,62 @@
+name: Dotnet Web-Api Template CI/CD
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  pipeline:
+    permissions:
+      contents: read
+      packages: write
+      actions: read
+    uses: OFA-TECH/.github/.github/workflows/ci-cd.yml@main
+    with:
+      gh-runner: self-hosted
+      language: dotnet
+      language-version: "10.0.x"
+      language-distribution: ""
+      working-directory: "."
+      build-command: dotnet build ProjectTemplate-WebApi.slnx --configuration Release
+
+      run-verify: true
+      verify-command: bash .github/scripts/check-ef-model-drift.sh
+
+      run-unit-tests: true
+      unit-test-command: >-
+        dotnet test Tests/UnitTests/UnitTests.csproj --configuration Release --no-build &&
+        dotnet test Tests/ArchitectureTests/ArchitectureTests.csproj --configuration Release --no-build
+
+      run-integration-tests: true
+      integration-test-command: >-
+        dotnet test Tests/IntegrationTests/IntegrationTests.csproj --configuration Release --no-build
+
+      run-sonar: true
+      sonar-enforce-quality-gate: true
+      sonar-exclusions: "**/bin/**,**/obj/**,**/wwwroot/**,**/Migrations/**"
+
+      generate-docker-image: true
+      docker-registry: docker.io
+      docker-image-namespace: ""
+      docker-image-repository: dotnet-web-api-template
+      docker-image-tag: ""
+      docker-image-environment: production
+      dockerfile-path: Dockerfile
+
+      run-deploy: true
+      portainer-endpoint-id: "1"
+      portainer-swarm-id: ""
+      portainer-stack-type: swarm
+      portainer-stack-name: dotnet-web-api-template
+      portainer-stack-file-content: ""
+      portainer-stack-file-path: docker-compose.yml
+
+      run-post-deploy-tests: false
+
+      run-health-check: false
+      health-check-url: ""
+      health-check-retries: "10"
+      rollback-to: ""
+    secrets: inherit

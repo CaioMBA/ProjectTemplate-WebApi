@@ -1,0 +1,70 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".dockerignore" />
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+    <File Path="Dockerfile" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="Nuget.config" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/.config/">
+    <File Path=".config/dotnet-tools.json" />
+  </Folder>
+  <Folder Name="/Solution Items/.github/" />
+  <Folder Name="/Solution Items/.github/workflows/">
+    <File Path=".github/workflows/ci-cd.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/docs/">
+    <File Path="docs/PROJECT-STATE.md" />
+  </Folder>
+  <Folder Name="/Solution Items/docs/adr/">
+    <File Path="docs/adr/0001-shared-kernel-domain.md" />
+    <File Path="docs/adr/0002-mapster-over-automapper.md" />
+    <File Path="docs/adr/0003-hand-rolled-dispatcher.md" />
+    <File Path="docs/adr/0004-native-distributed-cache.md" />
+    <File Path="docs/adr/0005-single-sql-provider.md" />
+    <File Path="docs/adr/0006-authentication-deferred.md" />
+    <File Path="docs/adr/0007-non-obvious-constraints.md" />
+    <File Path="docs/adr/0008-multi-provider-sql.md" />
+    <File Path="docs/adr/0009-provider-strategies-and-modules.md" />
+    <File Path="docs/adr/0010-dapper-access-layer.md" />
+    <File Path="docs/adr/0011-secret-resolution.md" />
+    <File Path="docs/adr/0012-infrastructure-grouping.md" />
+    <File Path="docs/adr/0013-shells-versus-implementations.md" />
+    <File Path="docs/adr/0014-dynamic-health-checks.md" />
+  </Folder>
+  <Folder Name="/Source/">
+    <Project Path="Source/Application/Application.csproj" />
+    <Project Path="Source/Domain/Domain.csproj" />
+    <Project Path="Source/WebApi/WebApi.csproj" />
+  </Folder>
+  <Folder Name="/Source/Infrastructure/" />
+  <Folder Name="/Source/Infrastructure/Api/">
+    <Project Path="Source/Infrastructure/Api/Data.GraphqlApi/Data.GraphqlApi.csproj" />
+    <Project Path="Source/Infrastructure/Api/Data.GrpcApi/Data.GrpcApi.csproj" />
+    <Project Path="Source/Infrastructure/Api/Data.RestApi/Data.RestApi.csproj" />
+  </Folder>
+  <Folder Name="/Source/Infrastructure/Data/">
+    <Project Path="Source/Infrastructure/Data/Data.Broker/Data.Broker.csproj" />
+    <Project Path="Source/Infrastructure/Data/Data.Cache/Data.Cache.csproj" />
+    <Project Path="Source/Infrastructure/Data/Data.NoSql/Data.NoSql.csproj" />
+    <Project Path="Source/Infrastructure/Data/Data.Sql/Data.Sql.csproj" />
+  </Folder>
+  <Folder Name="/Source/Infrastructure/Platform/">
+    <Project Path="Source/Infrastructure/Platform/CrossCutting/CrossCutting.csproj" />
+    <Project Path="Source/Infrastructure/Platform/Observability/Observability.csproj" />
+    <Project Path="Source/Infrastructure/Platform/Scheduling/Scheduling.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/ArchitectureTests/ArchitectureTests.csproj" />
+    <Project Path="Tests/IntegrationTests/IntegrationTests.csproj" />
+    <Project Path="Tests/UnitTests/UnitTests.csproj" />
+  </Folder>
+</Solution>

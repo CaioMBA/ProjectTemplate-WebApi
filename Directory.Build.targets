@@ -1,0 +1,11 @@
+<Project>
+
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'WebApi'">
+    <Using Remove="HotChocolate" />
+    <Using Remove="HotChocolate.Types" />
+    <Using Remove="HotChocolate.Types.Relay" />
+    <Using Remove="HotChocolate.Types.Composite" />
+    <Using Remove="GreenDonut" />
+  </ItemGroup>
+
+</Project>

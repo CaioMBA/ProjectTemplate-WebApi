@@ -1,0 +1,80 @@
+version: "3.9"
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+x-deploy-common: &deploy-common
+  replicas: 1
+  restart_policy:
+    condition: any
+    delay: 10s
+    max_attempts: 0
+  placement:
+    constraints:
+      - node.role == worker
+
+services:
+  api:
+    image: ${DOCKER_IMAGE:-caiomba/dotnet-web-api-template:latest}
+    logging: *logging
+    networks:
+      - shared-network
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_HTTP_PORTS: "8080"
+      DEPLOYMENT_TARGET: "Docker"
+      TZ: "UTC"
+
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://monitoring_alloy:4317"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+      OTEL_SERVICE_NAME: "dotnet-web-api-template"
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=dotnet-web-api-template,service.namespace=homelab,service.instance.id={{.Task.ID}},deployment.environment.name=Production"
+
+      Api__Documentation__Enabled: "false"
+
+      Settings__Databases__0__Id: "DEFAULT"
+      Settings__Databases__0__Type: "Postgresql"
+      Settings__Databases__0__Host: "postgres_app"
+      Settings__Databases__0__Port: "5432"
+      Settings__Databases__0__Database: "webapi_template"
+      Settings__Databases__0__Username: "webapi_template"
+      Settings__Databases__0__Password: "/run/secrets/webapi_template_db_password"
+      Settings__Caches__0__Id: "DEFAULT"
+      Settings__Caches__0__Type: "Redis"
+      Settings__Caches__0__Host: "redis_cache"
+      Settings__Caches__0__Port: "6379"
+      Settings__Caches__0__Username: "webapi_template"
+      Settings__Caches__0__Password: "/run/secrets/webapi_template_redis_password"
+    secrets:
+      - webapi_template_db_password
+      - webapi_template_redis_password
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fs http://localhost:8080/health | jq -r '.status' | grep -qi '^healthy$$'",
+        ]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+    deploy:
+      <<: *deploy-common
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+
+networks:
+  shared-network:
+    external: true
+
+secrets:
+  webapi_template_db_password:
+    external: true
+  webapi_template_redis_password:
+    external: true
