@@ -18,7 +18,6 @@
     <PackageReference Include="MongoDB.Driver" />
     <PackageReference Include="Microsoft.Data.SqlClient" />
     <PackageReference Include="Hangfire.Console.Extensions" />
-    <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Hangfire" />
   </ItemGroup>

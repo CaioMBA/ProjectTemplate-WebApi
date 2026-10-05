@@ -98,7 +98,6 @@
     <PackageVersion Include="Hangfire.Mongo" Version="1.17.0" />
     <PackageVersion Include="Hangfire.Console.Extensions" Version="2.1.2" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Hangfire" Version="1.19.0-beta.1" />
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
   <ItemGroup Label="WebApi (presentation)">
     <PackageVersion Include="Asp.Versioning.Mvc" Version="10.2.1" />

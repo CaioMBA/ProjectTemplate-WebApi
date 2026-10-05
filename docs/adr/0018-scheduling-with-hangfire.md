@@ -96,9 +96,11 @@ new keyed `IOutboxMaintenance` port (EF `ExecuteDeleteAsync`, so every SQL engin
 
 `Hangfire.Core` / `.AspNetCore` / `.SqlServer` 1.8.25, `Hangfire.InMemory` 1.0.0,
 `Hangfire.PostgreSql` 1.21.1, `Hangfire.Console.Extensions` 2.1.2,
-`OpenTelemetry.Instrumentation.Hangfire` 1.19.0-beta.1. `Newtonsoft.Json` is pinned to 13.0.4
-because Hangfire.Core's minimum (11.0.1) has a high-severity advisory (GHSA-5crp-9r3c-p9vr),
-which fails the build under `TreatWarningsAsErrors`.
+`OpenTelemetry.Instrumentation.Hangfire` 1.19.0-beta.1. `Newtonsoft.Json` is not referenced directly:
+Hangfire.Core alone would resolve its minimum, 11.0.1, which has a high-severity advisory
+(GHSA-5crp-9r3c-p9vr) and fails the build under `TreatWarningsAsErrors`, but
+`OpenTelemetry.Instrumentation.Hangfire` requires >= 13.0.1, which is patched. If that package is
+ever removed, pin `Newtonsoft.Json` again (`Directory.Packages.props` + `Scheduling.csproj`).
 
 ## Consequences
 
